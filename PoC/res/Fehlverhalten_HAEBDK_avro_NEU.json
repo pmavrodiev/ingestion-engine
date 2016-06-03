@@ -1,67 +1,62 @@
 {
-  "type" : "record",
-  "namespace" : "com.scigility.postlogistics.logs",
-  "name" : "Fehlverhalten_HAEBDK_NEU",
-  "doc" : "This schema describes a log file using the Apache Avro 1.8.0 Specification. For reference see https://avro.apache.org/docs/1.8.0/",
-  "fields" : [
-    {
-      "name" : "NR",
-      "type" : "int",
-      "default" : -1,
-      "doc"  : "Sequential number for the log event (REQUIRED)"
-    },
-    {
-      "name" : "Datum" ,
-      "type" : "long",
-      "default" : -1,
-      "doc"  : "Event date as the number of milliseconds from the unix epoch, 1 January 1970 (ISO calendar) (REQUIRED)"
-    },
-    {
-      "name": "EventNr",
-      "type": "string",
-      "default" : "",
-      "doc": "An internal event code that is either a null (i.e. optional), string or int. (OPTIONAL)"
-    } ,
-    {
-      "name" : "Fehler",
-      "type" : "string",
-      "default" : "",
-      "doc" : "Description of the error message (OPTIONAL)"
-    },
-    {
-      "name" : "Name",
-      "type" : "string",
-      "default" : "",
-      "doc" : "Responsible person (OPTIONAL)"
-    },
-    {
-      "name" : "Anmerkung",
-      "type" : "string",
-      "default" : "",
-      "doc": "Remark on the error message (OPTIONAL)"
-    },
-    {
-      "name" : "InArbeitBei",
-      "type" : "string",
-      "default" : "",
-      "doc" : "Person processing the error (OPTIONAL)"
-    },
-    {
-      "name" : "ErledigtDatum",
-      "type": "long",
-      "default" : -1,
-      "doc" : "Completion date as the number of days from the unix epoch, 1 January 1970 (ISO calendar) (optional)"
-    },
-    {
-      "name" : "Kommentar",
-      "type" :  "string",
-      "default" : "",
-      "doc" : "Comment (OPTIONAL)"
-    }
-  ]
+   "type" : "record",
+   "namespace" : "com.scigility.postlogistics.logs",
+   "name" : "Fehlverhalten_HAEBDK_NEU",
+   "doc" : "This schema describes a log file using the Apache Avro 1.8.0 Specification. For reference see https://avro.apache.org/docs/1.8.0/",
+   "fields" : [
+      {
+        "name" : "NR",
+        "type" : "int",
+        "default" : -1,
+        "doc"  : "Sequential number for the log event (REQUIRED)"
+      },
+     {
+        "name" : "Datum" ,
+        "type" : "long",
+        "default" : -1,
+        "doc"  : "Event date as the number of milliseconds from the unix epoch, 1 January 1970 (ISO calendar) (REQUIRED)"
+      },
+      {
+        "name": "EventNr",
+        "type": "string",
+	"default" : "",
+        "doc": "An internal event code that is either a null (i.e. optional), string or int. (OPTIONAL)"
+      } ,
+      {
+        "name" : "Fehler",
+        "type" : "string",
+	"default" : "",
+        "doc" : "Description of the error message (OPTIONAL)"
+      },
+      {
+        "name" : "Name",
+        "type" : "string",
+	"default" : "",
+        "doc" : "Responsible person (OPTIONAL)"
+      },
+      {
+        "name" : "Anmerkung",
+        "type" : "string",
+	"default" : "",
+        "doc": "Remark on the error message (OPTIONAL)"
+      },
+      {
+        "name" : "InArbeitBei",
+        "type" : "string",
+	"default" : "",
+        "doc" : "Person processing the error (OPTIONAL)"
+      },
+      {
+        "name" : "ErledigtDatum",
+        "type": "long",
+	"default" : -1,
+        "doc" : "Completion date as the number of days from the unix epoch, 1 January 1970 (ISO calendar) (optional)"
+      },
+      {
+        "name" : "Kommentar",
+        "type" :  "string",
+        "default" : "",
+        "doc" : "Comment (OPTIONAL)"
+      }
+   ]
 }
-
-
-
-
-

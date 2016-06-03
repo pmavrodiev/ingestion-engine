@@ -34,7 +34,7 @@ public class HaebdkParser_OLD implements Parser {
             while (scanner.hasNext()) {
                 String itemValue = scanner.next();
                 if (!itemValue.isEmpty()) {
-                    if (counter == 0 || counter == 5) {
+                    if (counter == 0 /* Datum */|| counter == 5 /* ErledigtDatum */) {
                         try {
                             long timestamp = dfm.parse(itemValue).getTime();
                             map.put(schemaKeys[counter], timestamp);
@@ -42,24 +42,24 @@ public class HaebdkParser_OLD implements Parser {
                         catch (ParseException e) {
                             log.info("Parser Exception:{}", e);
                         }
-                        // these are dates in format dd/mm/yy. convert to timestamps
                     }
                     else // the rest are strings
                         map.put(schemaKeys[counter], itemValue);
                 }
                 else {
                     if (counter == 1 || counter == 2 || counter == 3 || counter == 4)
+                        /*
+                         * Add an empty string for the string fields instead of null as prescribed by the Avro schema.
+                         * The issue is that the Confluent HDFS connector does not check for null strings.
+                         * It tries to get the class of the provided item by doing value.getClass(), which will
+                         * give a NullPointer exception when value=null.
+                         * See this for details: https://github.com/confluentinc/schema-registry/issues/272
+                        */
                         map.put(schemaKeys[counter],"");
                     else if (counter == 5)
                         map.put(schemaKeys[counter], (long) -1);
 
                 }
-                //else {
-                //    if (counter == 5) //ErledigtDatum
-                 //       map.put(schemaKeys[counter], (long) -1);
-                 //   else
-                 //       map.put(schemaKeys[counter],"");
-               // }
                 counter++;
             }
         }

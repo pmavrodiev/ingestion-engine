@@ -1,0 +1,128 @@
+{
+  "type" : "record",
+  "name" : "topLevelRecord",
+  "fields" : [ {
+    "name" : "Datum",
+    "type" : "string",
+    "default" : ""
+  }, 
+  {
+    "name" : "Traysorter",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Nummern_CHO1",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Nummern_CHO2",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Nummern_CHO3",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Nummern_CHO4",
+    "type" : "string",
+    "default" : ""
+  }, 
+  {
+    "name" : "Nummern_CHO5",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Vor_Crash_CHO_neues_Fahrwerk",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Vor_Crash_CHO_altes_Fahrwerk",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Nach_Crash_CHO_neues_Farhwerk",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Nach_Crash_CHO_altes_Fahrwerk",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Vor_Crash_CHO_neuer_Kippmechanismus",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Vor_Crash_CHO_alter_Kippmechanismus",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Nach_Crash_CHO_neuer_Kippmechanismus",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Nach_Crash_CHO_alter_Kippmechanismus",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Crashstandort",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Paketgut",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Element_CHO_Kippmechanismus",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Element_CHO_Fahrwerk",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Element_CHO_Hebel",
+    "type" : "string",
+    "default" : ""
+
+  }, 
+  {
+    "name" : "Verteillzentrum",
+    "type" : "string",
+    "default" : ""
+  } 
+]
+}

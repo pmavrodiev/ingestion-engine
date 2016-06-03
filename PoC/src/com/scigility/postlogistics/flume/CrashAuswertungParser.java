@@ -35,6 +35,13 @@ public class CrashAuswertungParser implements Parser {
             while (scanner.hasNext() && counter < schemaKeys.length)  {
                 String itemValue = scanner.next();
                 if (itemValue.isEmpty()) {
+                    /*
+                     * Add an empty string for the string fields instead of null as prescribed by the Avro schema.
+                     * The issue is that the Confluent HDFS connector does not check for null strings.
+                     * It tries to get the class of the provided item by doing value.getClass(), which will
+                     * give a NullPointer exception when value=null.
+                     * See this for details: https://github.com/confluentinc/schema-registry/issues/272
+                    */
                     map.put(schemaKeys[counter],"");
                 }
                 else

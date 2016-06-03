@@ -39,7 +39,7 @@ public class HaebdkParser_NEU implements Parser {
             while (scanner.hasNext()) {
                 String itemValue = scanner.next();
                 if (!itemValue.isEmpty()) {
-                    if (counter == 1 || counter == 7) {
+                    if (counter == 1 /* Datum */|| counter == 7 /* ErledigtDatum */) {
                         try {
                             long timestamp = dfm.parse(itemValue).getTime();
                             map.put(schemaKeys[counter], timestamp);
@@ -47,10 +47,8 @@ public class HaebdkParser_NEU implements Parser {
                         catch (ParseException e) {
                             log.info("Parser Exception:{}", e);
                         }
-                        // these are dates in format dd/mm/yy. convert to timestamps
                     }
-                    else if (counter == 0 ) {
-                        // this is the NR field
+                    else if (counter == 0 /* NR */) {
                         int nr = Integer.parseInt(itemValue);
                         map.put(schemaKeys[counter], nr);
                     }
@@ -58,24 +56,20 @@ public class HaebdkParser_NEU implements Parser {
                         map.put(schemaKeys[counter], itemValue);
                 }
                 else {
-                    if (counter == 2 || counter == 3 || counter == 4 || counter == 5 || counter == 6 || counter == 8) //Kommentar
+                    if (counter == 2 || counter == 3 || counter == 4 || counter == 5 || counter == 6 || counter == 8)
+                        /*
+                         * Add an empty string for the string fields instead of null as prescribed by the Avro schema.
+                         * The issue is that the Confluent HDFS connector does not check for null strings.
+                         * It tries to get the class of the provided item by doing value.getClass(), which will
+                         * give a NullPointer exception when value=null.
+                         * See this for details: https://github.com/confluentinc/schema-registry/issues/272
+                        */
                         map.put(schemaKeys[counter],"");
-                    else if (counter == 7)
+                    else if (counter == 7 /* ErledigtDatum */)
                         map.put(schemaKeys[counter], (long) -1);
                 }
                 counter++;
             }
-            // if (counter < schemaKeys.length) {
-                /*
-                    Add an empty string for Kommentar instead of null as prescribed by the Avro schema.
-                    The issue is that the Confluent HDFS connector does not check for null strings.
-                    It tries to get the class of the provided item by doing value.getClass(), which will
-                    give a NullPointer exception when value=null.
-                    See this for details: https://github.com/confluentinc/schema-registry/issues/272
-                */
-              //  map.put(schemaKeys[counter],"");
-            //}
-
 
         }
         catch (SerializationException e) {

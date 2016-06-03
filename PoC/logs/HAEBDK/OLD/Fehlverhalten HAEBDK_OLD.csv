@@ -1,0 +1,32 @@
+01/02/12|5175|Paket zulang wird mit Zielstelle 0 angegeben sollte aber Zielstelle 18 sein|Remo|||
+02/02/12|5178|"Ist auf Legat momentan rot, gelb währe jedoch besser da es nur eine Warnung ist Anmerkung: 21.02.2012 hohlmi Sicherheitskreis unterbrochen sollte Rot angezeigt werden, dies ist schliesslich keine Warnung !!!"|Remo/Dani|||
+02/02/12||BDK läuft nicht wie jeden morgen|Michel|||
+16/02/12||Kulisse sperren über BDK nicht möglich.|buettlerd|||
+16/02/12||"BDK Oberfläche, ist es möglich die Grösse zu ändern ?"|ryserhp|||
+16/02/12|TRY01 ULC05. |"Ganzer ULC gesperrt, auf Legato grün."|buettlerd|||
+16/02/12|TRY01 ULC05. |"Einzelne RRU gesperrt, in Legato blau, ist o.k."|buettlerd|||
+16/02/12|TRY02 AIM 07|"Meldung Paket zu lang CBU02 auf Legato, auf BDK nicht"|buettlerd|||
+16/02/12|TRY01 ULC05. |"Störung auf BDK, keine Anzeige auf Legato Visu"|buettlerd|||
+16/02/12|TRY02 RRU 120|"Auf BDK Vollrückstau, auf Legato gelb"|buettlerd|||
+16/02/12|TRY03 RUU 233|Meldung nicht auf Legato auf Visu rot|buettlerd|||
+17/02/12|TRY01  |Mappen Transfer 2 auf Transfer 1 i/0 .Beim zurückmappen musste ich zusätzlich Zielstellenmapping anklicken sonst keine Transferzahlen auf dem Legator.(Feld Zugewiesene war leer)|ryser hp|||
+20/02/12|TRY01 RRU 22|"Meldung BDK Vollrückstau Zielstellen, Visuell auf Legato Grün"|hohlmi|||
+20/02/12|TRY02 RRU 149|"Meldung BDK Vollrückstau Zielstellen, Visuell auf Legato Gelb, am späteren Abend dann plötzlich richtig !!!!"|hohlmi|||
+20/02/12|BDK|"Muss in regelmässigen Abständen selber gerefresht werden da sich keine aktuellen Meldungen mehr in Ereignisse befinden. Oder Meldungen sind da und plötzlich wieder weg, dann klicke Ich wieder auf Ereignisse damit Ich wieder alle aktuellen Störmeldungen habe."|hohlmi|||
+20/02/12|1361|Wäre gut wenn auf BDK noch Sichtbar welche AIC das zu schwere Paket eingeschleusst hat. Bei zu vielen schweren Pakete sehr hilfreich um zu reagieren.|hohlmi|||
+20/02/12|TRY02 ULC03 B300|"Störung auf BDK, keine Anzeige auf Legato Visu"|hohlmi|||
+20/02/12|TRY02 RRU 150|"Meldung BDK Vollrückstau Zielstellen, Visuell auf Legato Gelb"|hohlmi|||
+21/02/12|BDK|Ab10.45 Es sind nicht mehr alle Meldungen auf der BDK|ryser hp|||
+21/02/12|TRY01 RRU 407|"Meldung BDK Vollrückstau Zielstellen, Visuell auf Legato Grün"|hohlmi|||
+21/02/12|BDK|"Service/ System Parameter/ Max. Rounds alle auf 3, auf TOS alle auf 2, übernimmt dies die BDK nicht ?"|hohlmi|||
+21/02/12|5178|Auf BDK wird diese Meldung mit Zielstelle Nr. 1 anstatt 18 angegeben|hohlmi|||
+23/02/12|TRY01 RRU 38 & 62|"Meldung BDK Vollrückstau Zielstellen, Visuell auf Legato Grün"|hohlmi|||
+23/02/12|TRY03 RUU 164|"Meldung BDK Vollrückstau Zielstellen, in der BDK unter Destination ULC02 RUU 164 wird die Rutsche mit Grün (Betrieb, leer) angegeben anstatt Rot Störung ------ Betrifft wahrscheinlich alle Rutschen. Hatte jetzt diverse mit dem selben Problem."|hohlmi|||
+23/02/12|1445|Wird in der BDK nicht Angezeigt zum Quittieren (Farbshema)|hohlmi|||
+23/02/12|4305|Wird in der BDK nicht Angezeigt zum Quittieren (Farbshema)|hohlmi|||
+23/02/12|5176|"Erscheint in der BDK Blau, Rot wäre besser"|hohlmi|||
+24/02/12|21204|keine Meldung auf BDK|hohlmi|||
+05/03/12||"FZ 2,4,5,6,7 keine Störmeldung auf BDK und keine Visuelle Anzeige auf BLE. Betrifft je nachdem alle FZ"|hohlmi|||
+05/03/12|TRY01 RUU 30|Auf BDK Störung auf BLE keine Visuelle Anzeige|hohlmi|||
+23/03/12|BDK|"Konnte Kulisse FZ 18 nicht sperren, alle Sorter"|hohlmi|||
+29/03/12|BDK|"Mappen mehrere Zielstellen in eine andere nicht möglich, da die Zielstelle nach dem zuweisen der ersten aus der Liste verschwindet. Z.B. Transfer 2 und Reject in Fern 8"|Remo|||
