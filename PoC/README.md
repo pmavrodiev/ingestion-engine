@@ -32,7 +32,7 @@ Contains the schemas for the log files above. Notice that the only difference be
 
 Flume configuration files for processing the different log files
 
-- **flume_OLD.conf**, **flume_NEU.conf** and flume_CRASH.conf  - Use this conf for Fehlverhalten HAEBDK_OLD.csv, Fehlverhalten HAEBDK.neu and CrashAuswertung.csv, respectively.
+- **flume_OLD.conf**, **flume_NEU.conf** and **flume_CRASH.conf**  - Use this conf for Fehlverhalten HAEBDK_OLD.csv, Fehlverhalten HAEBDK.neu and CrashAuswertung.csv, respectively.
 
 - **flume_BAD.conf** - Almost the same as flume_NEU.conf except we specify a different schema.
 
