@@ -1,4 +1,4 @@
-# File structure
+# Directory structure
 
 ## src/
 
