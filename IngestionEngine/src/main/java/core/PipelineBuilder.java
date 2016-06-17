@@ -35,11 +35,26 @@ public class PipelineBuilder<IncomingType, OutgoingType, ResponseType, ActionTyp
         return this;
     }
 
+    /**
+     *  Theses Functions will be executed in order to transform the object given by the service endpoint to an object
+     *  accepted by the datagateway
+     * @param step
+     * @param <FromType>
+     * @param <ToType>
+     * @return
+     */
     public <FromType, ToType> PipelineBuilder addIncomingSerializationStep(Function<FromType, ToType> step){
         this.incomingSerializationSteps.add(step);
         return this;
     }
 
+    /**
+     * Inversely these functions will be executed in order from the result type of the data gateway to transform to an arbitrary result type
+     * @param step
+     * @param <FromType>
+     * @param <ToType>
+     * @return
+     */
     public <FromType, ToType> PipelineBuilder addOutgoingSerializationStep(Function<FromType, ToType> step){
         this.outgoingSerializationSteps.add(step);
         return this;
