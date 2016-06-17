@@ -16,15 +16,14 @@ import java.util.function.Function;
 public class Main {
 
     public static void main(String[] args){
-        Function<Request, KafkaRESTRequest> transformer = KafkaRESTRequest::fromRequest;
 
         @SuppressWarnings(value = "unchecked")
         Pipeline<Request,KafkaRESTRequest, String, KafkaRESTAction> pipeline =
                 new PipelineBuilder<Request,KafkaRESTRequest, String, KafkaRESTAction>()
                         .setServiceEndPoint(new KafkaRESTServiceEndpoint("127.0.0.1", 8081))
                         .setAccessController(new DummyAccessController())
-                        .setDataGateway(new KafkaRESTDataGateway("127.0.0.1:8080"))
-                        .<Request, KafkaRESTRequest>addIncomingSerializationStep(transformer) //If you use IntelliJ Ignore the "Type Arguments given on a raw Method" error....that's an IntelliJ bug
+                        .setDataGateway(new KafkaRESTDataGateway("http://127.0.0.1:8082"))
+                        .<Request, KafkaRESTRequest>addIncomingSerializationStep(KafkaRESTRequest::fromRequest) //If you use IntelliJ Ignore the "Type Arguments given on a raw Method" error....that's an IntelliJ bug
                         .build();
 
         pipeline.start();

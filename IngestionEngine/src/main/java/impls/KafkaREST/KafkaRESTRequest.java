@@ -17,6 +17,7 @@ public class KafkaRESTRequest {
         KafkaRESTRequest restRequest = new KafkaRESTRequest();
 
         restRequest.urlAddition = request.uri();
+        restRequest.requestBody = request.body();
 
         return restRequest;
     }

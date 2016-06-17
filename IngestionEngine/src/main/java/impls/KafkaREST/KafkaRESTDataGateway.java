@@ -1,6 +1,7 @@
 package impls.KafkaREST;
 
 import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import core.dataGateway.DataGateway;
 
 import java.io.IOException;
@@ -23,16 +24,20 @@ public class KafkaRESTDataGateway implements DataGateway<KafkaRESTRequest, Strin
         String result= "";
         switch(kafkaRestAction.getVerb()){
             case GET:
-                result = Unirest.get(kafkaRestProxyURL + content.getUrlAddition()).toString();
+                try {
+                    result = Unirest.get(kafkaRestProxyURL + content.getUrlAddition()).asString().getBody();
+                } catch (UnirestException e) {
+                    throw new RuntimeException(e);
+                }
                 break;
             case POST:
-                //Unirest.post();
+                Unirest.post(kafkaRestProxyURL + content.getUrlAddition()).body(content.getRequestBody());
                 break;
             case DELETE:
-                //Unirest.delete();
+                Unirest.delete(kafkaRestProxyURL + content.getUrlAddition()).body(content.getRequestBody());
                 break;
             case UPDATE:
-
+                //?
                 break;
         }
         return result;
