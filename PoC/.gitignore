@@ -1,0 +1,7 @@
+.idea/
+.vagrant/
+out/
+*.iml
+*.log
+*.stackdump
+*.msi
