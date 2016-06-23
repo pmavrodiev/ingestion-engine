@@ -106,6 +106,8 @@ public class MainTest {
         String result = Unirest.post(url).headers(headers).body(json).asString().getBody();
         System.out.println(result);
 
+        //that would indicate that the POST was a success. No response from the Kafka Proxy should start like this if there was an error
+        //and if there was an internal proxy error (e.g. auth) the kafkaRestProxyResponse will be {} thus failing
         Boolean testFlag = result.startsWith("{\"kafkaRESTProxyResponse\":{\"offsets\"");
 
         assertNotEquals(result, testFlag);
