@@ -1,10 +1,7 @@
 package impls.KafkaREST;
 
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import core.Pipeline;
 import core.serviceEndPoints.ServiceEndPoint;
 import org.apache.log4j.Appender;
@@ -66,7 +63,12 @@ public class KafkaRESTServiceEndpoint implements ServiceEndPoint {
         final String kafkaResponseString = this.pipeline.authenticateAndExecuteAction(action, request, DEFAULT_RESPONSE_VALUE);
 
         JsonParser parser = new JsonParser();
-        final JsonElement kafkaResponse = parser.parse(kafkaResponseString);
+        JsonElement kafkaResponse;
+        try{
+            kafkaResponse = parser.parse(kafkaResponseString);
+        }catch(JsonSyntaxException exception){ //some responses from the Kafka rest proxy themselves are not valid json
+            kafkaResponse = parser.parse("{wrappedResponse: \""+kafkaResponseString+"\"}");
+        }
 
         final Boolean hasErrors = this.appender.isHasErrors();
         final List<JsonObject> logLines = this.appender.getLogLines();

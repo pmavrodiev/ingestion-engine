@@ -25,16 +25,16 @@ public class KafkaRESTDataGateway implements DataGateway<KafkaRESTRequest, Strin
         try{
             switch(kafkaRestAction.getVerb()){
                 case GET:
-                    result = Unirest.get(kafkaRestProxyURL + content.getUrlAddition()).asString().getBody();
+                    result = Unirest.get(kafkaRestProxyURL + content.getUrlAddition()).headers(content.getHeaders()).asString().getBody();
                     break;
                 case POST:
-                    result = Unirest.post(kafkaRestProxyURL + content.getUrlAddition()).body(content.getRequestBody()).asString().getBody();
+                    result = Unirest.post(kafkaRestProxyURL + content.getUrlAddition()).headers(content.getHeaders()).body(content.getRequestBody()).asString().getBody();
                     break;
                 case DELETE:
-                    result = Unirest.delete(kafkaRestProxyURL + content.getUrlAddition()).body(content.getRequestBody()).asString().getBody();
+                    result = Unirest.delete(kafkaRestProxyURL + content.getUrlAddition()).headers(content.getHeaders()).body(content.getRequestBody()).asString().getBody();
                     break;
                 case UPDATE:
-                    result = Unirest.patch(kafkaRestProxyURL + content.getUrlAddition()).body(content.getRequestBody()).asString().getBody();
+                    result = Unirest.patch(kafkaRestProxyURL + content.getUrlAddition()).headers(content.getHeaders()).body(content.getRequestBody()).asString().getBody();
                     break;
             }
         } catch (UnirestException e) {
