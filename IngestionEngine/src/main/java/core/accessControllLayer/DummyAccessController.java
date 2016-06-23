@@ -7,7 +7,7 @@ import spark.Request;
  * @author Graf_Blutwurst
  * @Date 6/17/2016
  */
-public class DummyAccessController implements AccessController<KafkaRESTAction, Request> {
+public class DummyAccessController implements AccessController<KafkaRESTAction> {
 
     private final Boolean alwaysReturn;
 
@@ -22,7 +22,7 @@ public class DummyAccessController implements AccessController<KafkaRESTAction, 
     }
 
     @Override
-    public AuthenticationResult authenticateAction(KafkaRESTAction action, Request content) {
+    public AuthenticationResult authenticateAction(KafkaRESTAction action) {
         return new AuthenticationResult(this.alwaysReturn, AUTH_MSG);
     }
 }
