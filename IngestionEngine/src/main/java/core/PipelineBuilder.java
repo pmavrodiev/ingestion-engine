@@ -13,12 +13,13 @@ import java.util.function.Function;
  * @author Graf_Blutwurst
  * @Date 6/17/2016
  */
-public class PipelineBuilder<IncomingType, OutgoingType, ResponseType, ActionType extends ActionDescriptor> {
+
+public class PipelineBuilder<IncomingType, DataGatewayExpectedType, DataGatewayResponseType, ActionType extends ActionDescriptor> {
     private ServiceEndPoint serviceEndPoint;
     private AccessController accessController;
     private List<Function> incomingSerializationSteps;
     private List<Function> outgoingSerializationSteps;
-    private DataGateway<OutgoingType, ResponseType, ActionType> dataGateway;
+    private DataGateway<DataGatewayExpectedType, DataGatewayResponseType, ActionType> dataGateway;
 
     public PipelineBuilder(){
         this.incomingSerializationSteps = Lists.newArrayList();
@@ -65,7 +66,7 @@ public class PipelineBuilder<IncomingType, OutgoingType, ResponseType, ActionTyp
         return this;
     }
 
-    public Pipeline<IncomingType, OutgoingType, ResponseType, ActionType> build(){
+    public Pipeline<IncomingType, DataGatewayExpectedType, DataGatewayResponseType, ActionType> build(){
         if(serviceEndPoint == null){
             throw new IllegalStateException("Service endpoint not set");
         }

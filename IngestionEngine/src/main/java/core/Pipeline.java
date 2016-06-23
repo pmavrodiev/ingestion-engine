@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.function.Function;
 
 
-public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType extends ActionDescriptor> {
+public class Pipeline<IncomingType, DataGatewayExpectedType, DataGatewayResponseType, ActionType extends ActionDescriptor> {
     private final static String CLIENT_FEEDBACK_LOGGER_NAME = "Client Feedback";
 
     private final static Logger internalLogger = Logger.getLogger(Pipeline.class);
@@ -24,14 +24,14 @@ public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType exten
     private final AccessController accessController;
     private final List<Function> incomingSerializationSteps;
     private final List<Function> outgoingSerializationSteps;
-    private final DataGateway<OutgoingType, ResponseType, ActionType> dataGateway;
+    private final DataGateway<DataGatewayExpectedType, DataGatewayResponseType, ActionType> dataGateway;
     private boolean started = false;
 
     private Logger clientFeedbackLogger;
 
 
 
-    Pipeline(ServiceEndPoint serviceEndPoint, AccessController accessController, DataGateway<OutgoingType, ResponseType, ActionType> dataGateway, List<Function> incomingSerializationSteps, List<Function> outgoingSerializationSteps){
+    Pipeline(ServiceEndPoint serviceEndPoint, AccessController accessController, DataGateway<DataGatewayExpectedType, DataGatewayResponseType, ActionType> dataGateway, List<Function> incomingSerializationSteps, List<Function> outgoingSerializationSteps){
         this.serviceEndPoint = serviceEndPoint;
         this.dataGateway = dataGateway;
         this.incomingSerializationSteps = ImmutableList.copyOf(incomingSerializationSteps);
@@ -39,7 +39,7 @@ public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType exten
         this.accessController = accessController;
     }
 
-    public ResponseType authenticateAndExecuteAction(ActionType action, IncomingType content, ResponseType defaultValue){
+    public DataGatewayResponseType authenticateAndExecuteAction(ActionType action, IncomingType content, DataGatewayResponseType defaultValue){
         final AuthenticationResult authResult = accessController.authenticateAction(action);
         if(authResult.getSuccess()){
             return tranformAndProcessContent(action, content);
@@ -49,20 +49,20 @@ public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType exten
         return defaultValue;
     }
 
-    private ResponseType tranformAndProcessContent(ActionType action, Object content){
+    private DataGatewayResponseType tranformAndProcessContent(ActionType action, Object content){
         Object tmpContent = content;
         for(Function transformer : this.incomingSerializationSteps){
             tmpContent = transformer.apply(tmpContent);
         }
         //there should be an assert here to check whether this cast is going to fail. but sadly it can't be done because of compiletime erasure of generics.
         try{
-            final OutgoingType requestContent = (OutgoingType)tmpContent;
+            final DataGatewayExpectedType requestContent = (DataGatewayExpectedType)tmpContent;
             Object tmpResponse = this.dataGateway.process(action, requestContent);
             for(Function transformer : this.outgoingSerializationSteps){
                 tmpResponse = transformer.apply(tmpResponse);
             }
 
-            return (ResponseType) tmpResponse;
+            return (DataGatewayResponseType) tmpResponse;
 
         }catch(ClassCastException e){
             internalLogger.log(Level.FATAL, "Incompatible Transformer chain. Check Pipeline config");
