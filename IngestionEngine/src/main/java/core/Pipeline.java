@@ -40,7 +40,7 @@ public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType exten
     }
 
     public ResponseType authenticateAndExecuteAction(ActionType action, IncomingType content, ResponseType defaultValue){
-        final AuthenticationResult authResult = accessController.authenticateAction(action);
+        final AuthenticationResult authResult = accessController.authenticateAction(action, content);
         if(authResult.getSuccess()){
             return tranformAndProcessContent(action, content);
         }else{

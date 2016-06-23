@@ -44,7 +44,6 @@ public class KafkaRESTServiceEndpoint implements ServiceEndPoint {
     @Override
     public void start() {
 
-
         get("/*", (request, response) -> {
             return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.GET), request);
         });

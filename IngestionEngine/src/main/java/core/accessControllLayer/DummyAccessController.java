@@ -1,10 +1,13 @@
 package core.accessControllLayer;
 
+import impls.KafkaREST.KafkaRESTAction;
+import spark.Request;
+
 /**
  * @author Graf_Blutwurst
  * @Date 6/17/2016
  */
-public class DummyAccessController implements AccessController {
+public class DummyAccessController implements AccessController<KafkaRESTAction, Request> {
 
     private final Boolean alwaysReturn;
 
@@ -19,7 +22,7 @@ public class DummyAccessController implements AccessController {
     }
 
     @Override
-    public AuthenticationResult authenticateAction(ActionDescriptor action) {
+    public AuthenticationResult authenticateAction(KafkaRESTAction action, Request content) {
         return new AuthenticationResult(this.alwaysReturn, AUTH_MSG);
     }
 }
