@@ -5,5 +5,5 @@ package core.accessControllLayer;
  * @Date 6/17/2016
  */
 public interface AccessController {
-    boolean authenticateAction(ActionDescriptor action);
+    AuthenticationResult authenticateAction(ActionDescriptor action);
 }

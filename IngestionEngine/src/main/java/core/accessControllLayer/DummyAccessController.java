@@ -5,8 +5,21 @@ package core.accessControllLayer;
  * @Date 6/17/2016
  */
 public class DummyAccessController implements AccessController {
+
+    private final Boolean alwaysReturn;
+
+    private final static String AUTH_MSG = "Authentication Failed";
+
+    public DummyAccessController() {
+        this(true);
+    }
+
+    public DummyAccessController(Boolean alwaysReturn){
+        this.alwaysReturn = alwaysReturn;
+    }
+
     @Override
-    public boolean authenticateAction(ActionDescriptor action) {
-        return true;
+    public AuthenticationResult authenticateAction(ActionDescriptor action) {
+        return new AuthenticationResult(this.alwaysReturn, AUTH_MSG);
     }
 }

@@ -17,6 +17,7 @@
         <dependency.jUnit.version>4.12</dependency.jUnit.version>
         <dependency.wepSpark.version>2.5</dependency.wepSpark.version>
         <dependency.unirest.version>1.4.9</dependency.unirest.version>
+        <dependency.gson.version>2.7</dependency.gson.version>
 
         <plugin.java.version>1.8</plugin.java.version>
         <plugin.maven-compiler-plugin.version>3.5.1</plugin.maven-compiler-plugin.version>
@@ -72,7 +73,11 @@
             <artifactId>unirest-java</artifactId>
             <version>${dependency.unirest.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>${dependency.gson.version}</version>
+        </dependency>
 
     </dependencies>
 

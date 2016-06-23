@@ -4,20 +4,30 @@ package core;
 import com.google.common.collect.ImmutableList;
 import core.accessControllLayer.AccessController;
 import core.accessControllLayer.ActionDescriptor;
+import core.accessControllLayer.AuthenticationResult;
 import core.dataGateway.DataGateway;
 import core.serviceEndPoints.ServiceEndPoint;
+import org.apache.log4j.Appender;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.function.Function;
 
 
 public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType extends ActionDescriptor> {
+    private final static String CLIENT_FEEDBACK_LOGGER_NAME = "Client Feedback";
+
+    private final static Logger internalLogger = Logger.getLogger(Pipeline.class);
+
     private final ServiceEndPoint serviceEndPoint;
     private final AccessController accessController;
     private final List<Function> incomingSerializationSteps;
     private final List<Function> outgoingSerializationSteps;
     private final DataGateway<OutgoingType, ResponseType, ActionType> dataGateway;
     private boolean started = false;
+
+    private Logger clientFeedbackLogger;
 
 
 
@@ -29,13 +39,14 @@ public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType exten
         this.accessController = accessController;
     }
 
-    public ResponseType authenticateAndExecuteAction(ActionType action, IncomingType content){
-        if(accessController.authenticateAction(action)){
+    public ResponseType authenticateAndExecuteAction(ActionType action, IncomingType content, ResponseType defaultValue){
+        final AuthenticationResult authResult = accessController.authenticateAction(action);
+        if(authResult.getSuccess()){
             return tranformAndProcessContent(action, content);
         }else{
-            //TODO: authentication error handling
+            clientFeedbackLogger.log(Level.ERROR, authResult.getAuthenticationMessage());
         }
-        return null;
+        return defaultValue;
     }
 
     private ResponseType tranformAndProcessContent(ActionType action, Object content){
@@ -54,8 +65,9 @@ public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType exten
             return (ResponseType) tmpResponse;
 
         }catch(ClassCastException e){
-            //TODO: Do correct logging here
-            e.printStackTrace();
+            internalLogger.log(Level.FATAL, "Incompatible Transformer chain. Check Pipeline config");
+            internalLogger.log(Level.FATAL, e);
+            clientFeedbackLogger.log(Level.FATAL, "Internal Server Error");
         }
         return null;
     }
@@ -64,15 +76,27 @@ public class Pipeline<IncomingType, OutgoingType, ResponseType, ActionType exten
         if(!started){
             this.serviceEndPoint.start();
             this.dataGateway.start();
+            setUpClientFeedbackLogger();
             this.started = true;
         }
     }
 
     public void shutdown(){
         if(started){
-            this.serviceEndPoint.start();
-            this.dataGateway.start();
+            this.serviceEndPoint.shutdown();
+            this.dataGateway.shutdown();
         }
+    }
+
+    private void setUpClientFeedbackLogger(){
+        this.clientFeedbackLogger = Logger.getLogger(CLIENT_FEEDBACK_LOGGER_NAME);
+        Appender clientAppender = this.serviceEndPoint.getClientFeedbackAppender();
+
+        if(clientAppender == null){
+            throw new IllegalStateException("Service Endpoint has provided null as a client Appender");
+        }
+
+        this.clientFeedbackLogger.addAppender(clientAppender);
     }
 
 }

@@ -72,6 +72,9 @@ public class PipelineBuilder<IncomingType, OutgoingType, ResponseType, ActionTyp
         if(dataGateway == null){
             throw new IllegalStateException("Data Gateway not set");
         }
+        if(accessController == null){
+            throw new IllegalStateException("AccessController not set");
+        }
         Pipeline result =  new Pipeline(serviceEndPoint, accessController, dataGateway, incomingSerializationSteps, outgoingSerializationSteps);
         this.serviceEndPoint.injectPipeline(result);
         return result;

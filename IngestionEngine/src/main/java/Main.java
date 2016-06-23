@@ -22,9 +22,10 @@ public class Main {
         Pipeline<Request,KafkaRESTRequest, String, KafkaRESTAction> pipeline =
                 new PipelineBuilder<Request,KafkaRESTRequest, String, KafkaRESTAction>()
                         .setServiceEndPoint(new KafkaRESTServiceEndpoint("127.0.0.1", 8081))
-                        .setAccessController(new DummyAccessController())
+                        .setAccessController(new DummyAccessController(false))
                         .setDataGateway(new KafkaRESTDataGateway("http://127.0.0.1:8082"))
                         .addIncomingSerializationStep( (Function<Request, KafkaRESTRequest>)KafkaRESTRequest::fromRequest ) //If you use IntelliJ Ignore the "Type Arguments given on a raw Method" error....that's an IntelliJ bug
+                        .addOutgoingSerializationStep((Object s)->{return ((String)s).toUpperCase();} )
                         .build();
 
         pipeline.start();
