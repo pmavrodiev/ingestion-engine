@@ -11,12 +11,14 @@ import java.util.List;
 public class KafkaRESTJsonResponse {
     private Object kafkaRESTProxyResponse;
     private List<JsonObject> logLines;
-    private boolean hasErrors;
+    private boolean hasProxyServerErrors;
+    private boolean wrappedResponse;
 
-    public KafkaRESTJsonResponse(Object kafkaRESTProxyResponse, List<JsonObject> logLines, boolean hasErrors) {
+    public KafkaRESTJsonResponse(Object kafkaRESTProxyResponse, List<JsonObject> logLines, boolean hasProxyServerErrors, boolean wrappedResponse) {
         this.kafkaRESTProxyResponse = kafkaRESTProxyResponse;
         this.logLines = logLines;
-        this.hasErrors = hasErrors;
+        this.hasProxyServerErrors = hasProxyServerErrors;
+        this.wrappedResponse = wrappedResponse;
     }
 
     public Object getKafkaRESTProxyResponse() {
@@ -35,11 +37,19 @@ public class KafkaRESTJsonResponse {
         this.logLines = logLines;
     }
 
-    public boolean isHasErrors() {
-        return hasErrors;
+    public boolean isHasProxyServerErrors() {
+        return hasProxyServerErrors;
     }
 
-    public void setHasErrors(boolean hasErrors) {
-        this.hasErrors = hasErrors;
+    public void setHasProxyServerErrors(boolean hasProxyServerErrors) {
+        this.hasProxyServerErrors = hasProxyServerErrors;
+    }
+
+    public boolean isWrappedResponse() {
+        return wrappedResponse;
+    }
+
+    public void setWrappedResponse(boolean wrappedResponse) {
+        this.wrappedResponse = wrappedResponse;
     }
 }

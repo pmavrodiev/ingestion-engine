@@ -1,10 +1,7 @@
 package impls.KafkaREST;
 
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import core.Pipeline;
 import core.serviceEndPoints.ServiceEndPoint;
 import org.apache.log4j.Appender;
@@ -45,36 +42,46 @@ public class KafkaRESTServiceEndpoint implements ServiceEndPoint {
     public void start() {
 
         get("/*", (request, response) -> {
-            return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.GET), request);
+            return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.GET), request, response);
         });
 
         post("/*", (request, response) -> {
-            return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.POST), request);
+            return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.POST), request, response);
         });
 
         put("/*", (request, response) -> {
-            return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.UPDATE), request);
+            return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.UPDATE), request, response);
         });
 
         delete("/*", (request, response) -> {
-            return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.DELETE), request);
+            return processRequest(new KafkaRESTAction(KafkaRESTAction.Verb.DELETE), request, response);
         });
     }
 
-    private String processRequest(KafkaRESTAction action, Request request){
+    private String processRequest(KafkaRESTAction action, Request request, Response response){
+        response.header("Content-Type", "application/json");
+
         final String kafkaResponseString = this.pipeline.authenticateAndExecuteAction(action, request, DEFAULT_RESPONSE_VALUE);
+        Boolean wrapped;
 
         JsonParser parser = new JsonParser();
-        final JsonElement kafkaResponse = parser.parse(kafkaResponseString);
+        JsonElement kafkaResponse;
+        try{
+            kafkaResponse = parser.parse(kafkaResponseString);
+            wrapped = false;
+        }catch(JsonSyntaxException exception){ //some responses from the Kafka rest proxy themselves are not valid json
+            kafkaResponse = parser.parse("{wrappedResponse: \""+kafkaResponseString+"\"}");
+            wrapped = true;
+        }
 
         final Boolean hasErrors = this.appender.isHasErrors();
         final List<JsonObject> logLines = this.appender.getLogLines();
 
-        final KafkaRESTJsonResponse response = new KafkaRESTJsonResponse(kafkaResponse, logLines, hasErrors);
+        final KafkaRESTJsonResponse responseContent = new KafkaRESTJsonResponse(kafkaResponse, logLines, hasErrors, wrapped);
 
         this.appender.reset();
 
-        return gson.toJson(response);
+        return gson.toJson(responseContent);
 
     }
 
