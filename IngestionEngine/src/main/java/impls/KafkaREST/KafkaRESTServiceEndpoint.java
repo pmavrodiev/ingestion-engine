@@ -33,9 +33,9 @@ public class KafkaRESTServiceEndpoint implements ServiceEndPoint {
 
 
 
-    public KafkaRESTServiceEndpoint(String bidningInterface, int port){
+    public KafkaRESTServiceEndpoint(String bindingInterface, int port){
         port(port);
-        ipAddress(bidningInterface);
+        ipAddress(bindingInterface);
         this.appender = new KafkaRESTAppender();
         this.gson = new Gson();
     }
@@ -72,6 +72,8 @@ public class KafkaRESTServiceEndpoint implements ServiceEndPoint {
         final List<JsonObject> logLines = this.appender.getLogLines();
 
         final KafkaRESTJsonResponse response = new KafkaRESTJsonResponse(kafkaResponse, logLines, hasErrors);
+
+        this.appender.reset();
 
         return gson.toJson(response);
 

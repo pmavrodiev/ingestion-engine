@@ -67,6 +67,10 @@ public class KafkaRESTAppender extends AppenderSkeleton {
         return hasErrors;
     }
 
+    public void reset(){
+        this.events = Lists.newArrayList();
+    }
+
     public List<JsonObject> getLogLines(){
         final Gson gson = new Gson();
         final JsonParser parser = new JsonParser();
