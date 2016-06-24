@@ -109,7 +109,7 @@ public class KafkaRestPipelineTest {
 
     //@Test
     public void mainPOSTTest() throws Exception {
-        final String url = "http://localhost:8081/topics/testabc"; 
+        final String url = "http://localhost:8081/topics/testabc";
         final Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/vnd.kafka.avro.v1+json");
         headers.put("Accept", "application/vnd.kafka.v1+json, application/vnd.kafka+json, application/json");
